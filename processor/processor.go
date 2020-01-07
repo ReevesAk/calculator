@@ -5,8 +5,8 @@ import (
 	"strings"
 )
 
-func TrimAndConvertString(takesString string) int {
+func TrimAndConvertString(takesString string) float64 {
 	trimString := strings.Trim(takesString, " ")
-	str, _ := strconv.Atoi(trimString)
+	str, _ := strconv.ParseFloat(trimString, 32)
 	return str
 }

@@ -8,8 +8,12 @@ import (
 	"goCalculator/processor"
 )
 
-func AnyDelimeterCase(expression, delimeter string) (int, int) {
-	userInput := strings.Split(expression, delimeter)
+func splitWithAnyDelimeter(r rune) bool {
+	return r == '+' || r == '-' || r == '/' || r == '*'
+}
+
+func AnyDelimeterCase(expression, delimeter string) (float64, float64) {
+	userInput := strings.FieldsFunc(expression, splitWithAnyDelimeter)
 	n1 := userInput[0]
 	n2 := userInput[1]
 

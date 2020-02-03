@@ -1,36 +1,30 @@
 package operatorsSplitCase
 
 import (
-	"errors"
-	"fmt"
+	//"errors"
+	//"fmt"
+	"strconv"
 	"strings"
 
 	"goCalculator/processor"
 )
 
 func splitWithAnyDelimeter(r rune) bool {
-	return r == '+' || r == '-' || r == '/' || r == '*'
+	return r == '+' || r == '-' || r == '/' || r == '*' || r == '(' || r == ')'
 }
 
-func AnyDelimeterCase(expression, delimeter string) (float64, float64) {
+func AnyDelimeterCase(expression string) []string {
 	userInput := strings.FieldsFunc(expression, splitWithAnyDelimeter)
-	n1 := userInput[0]
-	n2 := userInput[1]
 
-	convertedNum1 := processor.TrimAndConvertString(n1)
-	convertedNum2 := processor.TrimAndConvertString(n2)
+	return userInput
+}
 
-	if delimeter == "*" {
-		fmt.Println(convertedNum1 * convertedNum2)
-	} else if delimeter == "+" {
-		fmt.Println(convertedNum1 + convertedNum2)
-	} else if delimeter == "-" {
-		fmt.Println(convertedNum1 - convertedNum2)
-	} else if delimeter == "/" {
-		fmt.Println(convertedNum1 / convertedNum2)
-	} else {
-		errors.New("invalid operator")
+func AStringArrayToInt(input string) []int {
+	trimmedString := processor.TrimString(input)
+	inputStr := AnyDelimeterCase(trimmedString)
+	arr := make([]int, len(inputStr))
+	for index, value := range inputStr {
+		arr[index], _ = strconv.Atoi(value)
 	}
-
-	return convertedNum1, convertedNum2
+	return arr
 }
